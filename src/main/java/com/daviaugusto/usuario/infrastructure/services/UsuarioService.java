@@ -6,6 +6,7 @@ import com.daviaugusto.usuario.infrastructure.converter.UsuarioConverter;
 import com.daviaugusto.usuario.infrastructure.dtos.UsuarioDTO;
 import com.daviaugusto.usuario.infrastructure.entity.Usuario;
 import com.daviaugusto.usuario.infrastructure.repositories.UsuarioRepository;
+import com.daviaugusto.usuario.infrastructure.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtUtil jwtUtil;
 
     public UsuarioDTO salvarUsuario(UsuarioDTO usuarioDTO){
         verificarEmail(usuarioDTO.getEmail());
@@ -56,4 +59,15 @@ public class UsuarioService {
         return usuarioRepository.existsByEmail(email);
     }
 
+    public UsuarioDTO atualizarDadosUsuario(String token, UsuarioDTO usuarioDTO){
+        String email = jwtUtil.extrairEmailToken(token.substring(7));
+        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Email não encontrado"));
+        usuarioDTO.setSenha(usuarioDTO.getSenha() != null ? passwordEncoder.encode(usuarioDTO.getSenha()) : null);
+        Usuario user = usuarioConverter.atualizarUsuario(usuarioDTO, usuario);
+        return usuarioConverter.paraUsuarioDTO(usuarioRepository.save(user));
+
+    }
+
+
 }
+
