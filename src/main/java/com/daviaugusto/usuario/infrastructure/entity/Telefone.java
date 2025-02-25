@@ -1,9 +1,11 @@
 package com.daviaugusto.usuario.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
 @Table(name = "telefone")
+@Builder
 public class Telefone {
 
     @Id
