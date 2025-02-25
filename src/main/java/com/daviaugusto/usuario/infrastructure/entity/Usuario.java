@@ -22,7 +22,7 @@ public class Usuario implements UserDetails {
     private String senha;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private List<Telefone> telefones;
+    private List<Telefone> telefone;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private List<Endereco> endereco;
@@ -30,12 +30,12 @@ public class Usuario implements UserDetails {
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, String email, String senha, List<Telefone> telefones, List<Endereco> endereco) {
+    public Usuario(Long id, String nome, String email, String senha, List<Telefone> telefone, List<Endereco> endereco) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.telefones = telefones;
+        this.telefone = telefone;
         this.endereco = endereco;
     }
 
@@ -72,11 +72,11 @@ public class Usuario implements UserDetails {
     }
 
     public List<Telefone> getTelefones() {
-        return telefones;
+        return telefone;
     }
 
     public void setTelefones(List<Telefone> telefones) {
-        this.telefones = telefones;
+        this.telefone = telefones;
     }
 
     public List<Endereco> getEndereco() {
