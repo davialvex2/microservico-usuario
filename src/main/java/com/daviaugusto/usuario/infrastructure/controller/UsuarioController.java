@@ -1,6 +1,8 @@
 package com.daviaugusto.usuario.infrastructure.controller;
 
 
+import com.daviaugusto.usuario.infrastructure.dtos.EnderecoDTO;
+import com.daviaugusto.usuario.infrastructure.dtos.TelefoneDTO;
 import com.daviaugusto.usuario.infrastructure.dtos.UsuarioDTO;
 import com.daviaugusto.usuario.infrastructure.security.JwtUtil;
 import com.daviaugusto.usuario.infrastructure.services.UsuarioService;
@@ -52,4 +54,31 @@ public class UsuarioController {
                                                             @RequestHeader("Authorization") String token){
         return ResponseEntity.ok(usuarioService.atualizarDadosUsuario(token, usuarioDTO));
     }
+
+    @PutMapping("/telefone/{id}")
+    public ResponseEntity<TelefoneDTO> atualizarTelefone(@PathVariable Long id,
+                                                         @RequestBody TelefoneDTO telefoneDTO){
+        return ResponseEntity.ok(usuarioService.atualizarDadosTelefone(id, telefoneDTO));
+    }
+
+    @PutMapping("/endereco/{id}")
+    public ResponseEntity<EnderecoDTO> atualizarEndereco(@PathVariable Long id,
+                                                         @RequestBody EnderecoDTO enderecoDTO){
+        return ResponseEntity.ok(usuarioService.atualizarEndereco(id, enderecoDTO));
+
+    }
+
+    @PostMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> inserirEndereco(@RequestBody EnderecoDTO enderecoDTO,
+                                                       @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(usuarioService.inserirEndereco(token, enderecoDTO));
+    }
+
+    @PostMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> inserirEndereco(@RequestBody TelefoneDTO telefoneDTO,
+                                                       @RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(usuarioService.inserirTelefone(token, telefoneDTO));
+    }
+
+
 }
