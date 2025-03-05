@@ -1,10 +1,14 @@
 package com.daviaugusto.usuario.infrastructure.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 
 @Entity
 @Table(name = "telefone")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Builder
 public class Telefone {
 
@@ -13,39 +17,7 @@ public class Telefone {
     private Long id;
     private String numero;
     private String ddd;
-
-    public Telefone(){
-    }
-
-    public Telefone(Long id, String ddd, String numero) {
-        this.id = id;
-        this.ddd = ddd;
-        this.numero = numero;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getDdd() {
-        return ddd;
-    }
-
-    public void setDdd(String ddd) {
-        this.ddd = ddd;
-    }
-
+    @Column(name = "usuario_id")
+    private Long usuario_id;
 
 }
