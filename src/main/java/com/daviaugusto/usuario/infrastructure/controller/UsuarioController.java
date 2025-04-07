@@ -4,8 +4,10 @@ package com.daviaugusto.usuario.infrastructure.controller;
 import com.daviaugusto.usuario.infrastructure.dtos.EnderecoDTO;
 import com.daviaugusto.usuario.infrastructure.dtos.TelefoneDTO;
 import com.daviaugusto.usuario.infrastructure.dtos.UsuarioDTO;
+import com.daviaugusto.usuario.infrastructure.dtos.ViaCepDTO;
 import com.daviaugusto.usuario.infrastructure.security.JwtUtil;
 import com.daviaugusto.usuario.infrastructure.services.UsuarioService;
+import com.daviaugusto.usuario.infrastructure.services.ViaCepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,7 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("usuario")
+@RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired
@@ -25,6 +27,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private ViaCepService viaCepService;
 
 
     @PostMapping
@@ -75,9 +80,14 @@ public class UsuarioController {
     }
 
     @PostMapping("/telefone")
-    public ResponseEntity<TelefoneDTO> inserirEndereco(@RequestBody TelefoneDTO telefoneDTO,
+    public ResponseEntity<TelefoneDTO> inserirTelefone(@RequestBody TelefoneDTO telefoneDTO,
                                                        @RequestHeader("Authorization") String token){
         return ResponseEntity.ok(usuarioService.inserirTelefone(token, telefoneDTO));
+    }
+
+    @GetMapping("/buscarcep/{cep}")
+    public ResponseEntity<ViaCepDTO> buscarCep(@PathVariable("cep") String cep){
+        return ResponseEntity.ok(viaCepService.buscarCep(cep));
     }
 
 
