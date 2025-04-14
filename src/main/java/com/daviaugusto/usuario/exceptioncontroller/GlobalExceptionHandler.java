@@ -4,6 +4,7 @@ package com.daviaugusto.usuario.exceptioncontroller;
 import com.daviaugusto.usuario.exceptions.ConflictException;
 import com.daviaugusto.usuario.exceptions.ResourceNotFoundException;
 import com.daviaugusto.usuario.exceptions.UnauthorizedException;
+import com.daviaugusto.usuario.exceptions.IllegalArgumentException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
